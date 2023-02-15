@@ -9,15 +9,15 @@ public class Main {
     public static List<String> searchCsvLine(int searchColumnIndex, String searchString) throws IOException {
         String regex = searchString + "[a-zA-Z. ]+";
         Pattern pattern = Pattern.compile(regex);
-        BufferedReader br = new BufferedReader(new FileReader("E://IdeaProjects//airports-search//airports.csv"));
+        BufferedReader br = new BufferedReader(new FileReader("airports.csv"));
         String line;
         List<String> rows = new ArrayList<>();
         long time = System.currentTimeMillis();
-        while ( (line = br.readLine()) != null ) {
+        while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            Matcher matcher = pattern.matcher(values[searchColumnIndex + 1]);
+            Matcher matcher = pattern.matcher(values[searchColumnIndex]);
             if (matcher.find()) {
-                rows.add(values[searchColumnIndex].substring(matcher.start(), matcher.end()));
+                rows.add(Arrays.toString(values) + "\n");
             }
         }
         System.out.println("Количество найденных строк: " + rows.size());
@@ -27,11 +27,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        int col = Integer.parseInt(args[0]);
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.println("Введите строку: ");
             String text = scanner.nextLine();
-            System.out.println(searchCsvLine(1, text));
+            System.out.println(searchCsvLine(col, text));
             if (text.equals("!quit")) {
                 System.exit(0);
             }
