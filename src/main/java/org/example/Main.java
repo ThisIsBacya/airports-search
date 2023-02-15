@@ -17,7 +17,7 @@ public class Main {
             String[] values = line.split(",");
             Matcher matcher = pattern.matcher(values[searchColumnIndex]);
             if (matcher.find()) {
-                rows.add(Arrays.toString(values) + "\n");
+                rows.add(values[1] + " " + Arrays.toString(values) + "\n");
             }
         }
         System.out.println("Количество найденных строк: " + rows.size());
